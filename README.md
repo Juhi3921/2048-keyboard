@@ -6,6 +6,8 @@ but the condition is while playing user can only use keyboard keys
 - New tiles appear after every valid mov
 - No mouse controls for gameplay
 - For new game user have to refresh page
+- The timer starts when the first arrow key is pressed.
+- Press Z to undo the previous valid move.
 
 Tech stack :
 html
@@ -20,10 +22,15 @@ js
 | ↓ | Move Down |
 | ← | Move Left |
 | → | Move Right |
-| Enter | Close Game Over message |
+| Z | Undo last move|
+|P	|Pause / Resume |
+|N	|Start a new game |
 
+
+When no valid moves remain, the game displays:
+
+Game Over >.<
+Press Enter in Alert box
 
 ScreenShot:
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/281c56cc-8ddd-4abd-bd2f-2f3dea34b8b6" />
-
-<img width="1352" height="633" alt="image" src="https://github.com/user-attachments/assets/5c7e4897-dede-449a-ab13-3c578e88573a" />
