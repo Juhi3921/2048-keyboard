@@ -41,8 +41,13 @@ export class Cell {
   }
 
   mergeTiles() {
-    this.linkedTile.setValue(this.linkedTile.value + this.linkedTileForMerge.value);
-    this.linkedTileForMerge.removeFromDOM();
-    this.unlinkTileForMerge();
+   const newValue =
+    this.linkedTile.value + this.linkedTileForMerge.value;
+
+  this.linkedTile.setValue(newValue);
+  this.linkedTileForMerge.removeFromDOM();
+  this.unlinkTileForMerge();
+
+  return newValue;
   }
 }
