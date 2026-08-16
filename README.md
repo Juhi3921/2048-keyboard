@@ -2,6 +2,10 @@ it's 2048 game!!
 
 but the condition is while playing user can only use keyboard keys 
 
+-Tiles merge when matching numbers meet
+- New tiles appear after every valid mov
+- No mouse controls for gameplay
+
 Tech stack :
 html
 css
