@@ -4,10 +4,11 @@ import { Tile } from "./tile.js";
 const gameBoard = document.getElementById("game-board");
 
 const grid = new Grid(gameBoard);
-grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
-grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
-setupInputOnce();
 
+grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
+grid.getRandomEmptyCell().linkTile(new Tile(gameBoard));
+
+setupInputOnce();
 
 function setupInputOnce() {
   window.addEventListener("keydown", handleInput, { once: true });
@@ -22,6 +23,7 @@ async function handleInput(event) {
       }
       await moveUp();
       break;
+
     case "ArrowDown":
       if (!canMoveDown()) {
         setupInputOnce();
@@ -29,6 +31,7 @@ async function handleInput(event) {
       }
       await moveDown();
       break;
+
     case "ArrowLeft":
       if (!canMoveLeft()) {
         setupInputOnce();
@@ -36,6 +39,7 @@ async function handleInput(event) {
       }
       await moveLeft();
       break;
+
     case "ArrowRight":
       if (!canMoveRight()) {
         setupInputOnce();
@@ -43,6 +47,7 @@ async function handleInput(event) {
       }
       await moveRight();
       break;
+
     default:
       setupInputOnce();
       return;
@@ -51,13 +56,42 @@ async function handleInput(event) {
   const newTile = new Tile(gameBoard);
   grid.getRandomEmptyCell().linkTile(newTile);
 
-  if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
-    await newTile.waitForAnimationEnd()
-    alert("Game over >.<")
+  if (
+    !canMoveUp() &&
+    !canMoveDown() &&
+    !canMoveLeft() &&
+    !canMoveRight()
+  ) {
+    await newTile.waitForAnimationEnd();
+    showGameOver();
     return;
   }
 
   setupInputOnce();
+}
+
+function showGameOver() {
+  const modal = document.createElement("div");
+
+  modal.id = "game-over";
+
+  modal.innerHTML = `
+    <div class="game-over-box">
+      <h2>Game over &gt;.&lt;</h2>
+      <p>Press ENTER to continue</p>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      modal.remove();
+      window.removeEventListener("keydown", handleEnter);
+    }
+  }
+
+  window.addEventListener("keydown", handleEnter);
 }
 
 async function moveUp() {
@@ -79,11 +113,14 @@ async function moveRight() {
 async function slideTiles(groupedCells) {
   const promises = [];
 
-  groupedCells.forEach(group => slideTilesInGroup(group, promises));
+  groupedCells.forEach(group => {
+    slideTilesInGroup(group, promises);
+  });
 
   await Promise.all(promises);
+
   grid.cells.forEach(cell => {
-    cell.hasTileForMerge() && cell.mergeTiles()
+    cell.hasTileForMerge() && cell.mergeTiles();
   });
 }
 
@@ -97,7 +134,11 @@ function slideTilesInGroup(group, promises) {
 
     let targetCell;
     let j = i - 1;
-    while (j >= 0 && group[j].canAccept(cellWithTile.linkedTile)) {
+
+    while (
+      j >= 0 &&
+      group[j].canAccept(cellWithTile.linkedTile)
+    ) {
       targetCell = group[j];
       j--;
     }
@@ -106,12 +147,16 @@ function slideTilesInGroup(group, promises) {
       continue;
     }
 
-    promises.push(cellWithTile.linkedTile.waitForTransitionEnd());
+    promises.push(
+      cellWithTile.linkedTile.waitForTransitionEnd()
+    );
 
     if (targetCell.isEmpty()) {
       targetCell.linkTile(cellWithTile.linkedTile);
     } else {
-      targetCell.linkTileForMerge(cellWithTile.linkedTile);
+      targetCell.linkTileForMerge(
+        cellWithTile.linkedTile
+      );
     }
 
     cellWithTile.unlinkTile();
@@ -135,7 +180,9 @@ function canMoveRight() {
 }
 
 function canMove(groupedCells) {
-  return groupedCells.some(group => canMoveInGroup(group));
+  return groupedCells.some(group =>
+    canMoveInGroup(group)
+  );
 }
 
 function canMoveInGroup(group) {
@@ -149,6 +196,7 @@ function canMoveInGroup(group) {
     }
 
     const targetCell = group[index - 1];
+
     return targetCell.canAccept(cell.linkedTile);
   });
 }
