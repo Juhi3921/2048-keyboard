@@ -53,7 +53,7 @@ async function handleInput(event) {
 
   if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
     await newTile.waitForAnimationEnd()
-    alert("А все, давай по новой >.<")
+    alert("Game over >.<")
     return;
   }
 
