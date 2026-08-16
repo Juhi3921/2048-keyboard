@@ -9,14 +9,25 @@
     <script src="./script.js" type="module"></script>
 </head>
 <body>
-    <h1>2048 Game</h1>
+<h1>2048 Game</h1>
 
-    <div class="instructions">
-        <p>Use the arrow keys to play!</p>
-        <p>↑ Up &nbsp; ↓ Down &nbsp; ← Left &nbsp; → Right</p>
-    </div>
-    
-    <div id="game-board"></div>
+<div class="keyboard-mode">
+    KEYBOARD MODE: ON
+</div>
+
+<div class="game-info">
+    <div>SCORE: <span id="score">0</span></div>
+    <div>BEST: <span id="best-score">0</span></div>
+    <div>MOVES: <span id="moves">0</span></div>
+    <div>TIME: <span id="game-timer">00:00</span></div>
+</div>
+
+<div class="instructions">
+    <p>↑ ↓ ← → &nbsp; Move</p>
+    <p>Z &nbsp; Undo &nbsp;&nbsp; P &nbsp; Pause &nbsp;&nbsp; N &nbsp; New Game</p>
+</div>
+
+<div id="game-board"></div>
     
 </body>
 </html>
