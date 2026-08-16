@@ -22,4 +22,7 @@ js
 | → | Move Right |
 | Enter | Close Game Over message |
 
+
+ScreenShot:
+
 <img width="1352" height="633" alt="image" src="https://github.com/user-attachments/assets/5c7e4897-dede-449a-ab13-3c578e88573a" />
